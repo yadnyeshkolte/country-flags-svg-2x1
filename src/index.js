@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const countryNames = require('./country-names.json');
 
 class CountryFlags {
     constructor() {
@@ -28,11 +29,6 @@ class CountryFlags {
     }
 
     getCountryName(code) {
-        const countryNames = {
-            'in': 'India',
-            'us': 'United States',
-            // Add more countries as needed
-        };
         return countryNames[code] || code.toUpperCase();
     }
 
