@@ -1,0 +1,20 @@
+{
+  "name": "country-flags-svg",
+  "version": "1.0.0",
+  "description": "A collection of SVG country flags with utility functions",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yadnyeshkolte/country-flags-svg-2x1.git"
+  },
+  "keywords": ["flags", "svg", "countries", "world-flags", "vector-flags", "national-flags", "flag-icons", "country-flags", "iso-flags", "flag-pack", "open-source-flags", "responsive-flags", "svg-icons", "flag-collection", "global-flags", "2x1-flags", "high-quality-flags", "detailed-flags"],
+  "author": "Yadnyesh Kolte",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yadnyeshkolte/country-flags-svg-2x1/issues"
+  },
+  "homepage": "https://github.com/yadnyeshkolte/country-flags-svg-2x1#readme"
+}
