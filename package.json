@@ -1,6 +1,6 @@
 {
   "name": "country-flags-svg-2x1",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A collection of SVG country flags with utility functions",
   "main": "src/index.js",
   "scripts": {
