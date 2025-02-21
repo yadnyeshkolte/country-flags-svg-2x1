@@ -10,6 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/yadnyeshkolte/country-flags-svg-2x1.git"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "keywords": [
     "flags",
     "svg",
