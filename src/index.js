@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const countryNames = require('./country-names.json');
+const countryNames = require('../country-names.json');
 
 class CountryFlags {
     constructor() {
@@ -33,14 +33,30 @@ class CountryFlags {
     }
 
     resizeSVG(svg, options = {}) {
-        const width = options.width || this.originalWidth;
-        const height = options.preserveAspectRatio
-            ? (width * this.originalHeight) / this.originalWidth
-            : (options.height || this.originalHeight);
+        // If width is provided, ensure height is exactly half of width
+        if (options.width) {
+            const width = options.width;
+            const height = width / 2; // This enforces 2:1 ratio
+            return svg.replace(
+                /<svg[^>]*>/,
+                `<svg width="${width}" height="${height}" viewBox="0 0 ${this.originalWidth} ${this.originalHeight}">`
+            );
+        }
 
+        // If height is provided, ensure width is exactly double
+        if (options.height) {
+            const height = options.height;
+            const width = height * 2; // This enforces 2:1 ratio
+            return svg.replace(
+                /<svg[^>]*>/,
+                `<svg width="${width}" height="${height}" viewBox="0 0 ${this.originalWidth} ${this.originalHeight}">`
+            );
+        }
+
+        // If no dimensions provided, return original size (900x450)
         return svg.replace(
             /<svg[^>]*>/,
-            `<svg width="${width}" height="${height}" viewBox="0 0 ${this.originalWidth} ${this.originalHeight}">`
+            `<svg width="${this.originalWidth}" height="${this.originalHeight}" viewBox="0 0 ${this.originalWidth} ${this.originalHeight}">`
         );
     }
 
