@@ -2,41 +2,29 @@
   "name": "country-flags-svg-2x1",
   "version": "1.0.1",
   "description": "A collection of SVG country flags with utility functions",
+  "type": "module",
   "main": "src/index.js",
+  "exports": {
+    "import": "./src/index.js",
+    "require": "./dist/index.cjs"
+  },
   "scripts": {
-    "test": "node test.js"
+    "test": "mocha test/test.js",
+    "test:browser": "karma start",
+    "build": "rollup -c",
+    "prepare": "npm run build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yadnyeshkolte/country-flags-svg-2x1.git"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "keywords": [
-    "flags",
-    "svg",
-    "countries",
-    "world-flags",
-    "vector-flags",
-    "national-flags",
-    "flag-icons",
-    "country-flags",
-    "iso-flags",
-    "flag-pack",
-    "open-source-flags",
-    "responsive-flags",
-    "svg-icons",
-    "flag-collection",
-    "global-flags",
-    "2x1-flags",
-    "high-quality-flags",
-    "detailed-flags"
-  ],
-  "author": "Yadnyesh Kolte",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/yadnyeshkolte/country-flags-svg-2x1/issues"
-  },
-  "homepage": "https://github.com/yadnyeshkolte/country-flags-svg-2x1#readme"
+  "dependencies": {},
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "chai": "^4.3.7",
+    "jsdom": "^21.1.0",
+    "karma": "^6.4.0",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-mocha": "^2.0.1",
+    "karma-webpack": "^5.0.0",
+    "mocha": "^10.2.0",
+    "rollup": "^3.20.0",
+    "webpack": "^5.75.0"
+  }
 }

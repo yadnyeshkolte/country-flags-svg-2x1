@@ -1,111 +1,40 @@
-const fs = require('fs');
-const path = require('path');
-const countryNames = require('../country-names.json');
+// index.js
+import { CountryFlags } from './CountryFlags.js';
+import { loadFlagData, countryNames } from './flagDataLoader.js';
 
-class CountryFlags {
-    constructor() {
-        this.flagsPath = path.join(__dirname, '../flags');
-        this.flags = new Map();
-        this.originalWidth = 900;
-        this.originalHeight = 450;
-        this.loadFlags();
-    }
+// Detect environment
+const isNode = typeof process !== 'undefined' &&
+    process.versions != null &&
+    process.versions.node != null;
 
-    loadFlags() {
-        const files = fs.readdirSync(this.flagsPath);
+async function createCountryFlags() {
+    if (isNode) {
+        // Node.js environment
+        const fs = await import('fs');
+        const path = await import('path');
+        const { fileURLToPath } = await import('url');
 
+        const __filename = fileURLToPath(import.meta.url);
+        const __dirname = path.dirname(__filename);
+
+        const flagsPath = path.join(__dirname, '../flags');
+        const flagData = {};
+
+        const files = fs.readdirSync(flagsPath);
         files.forEach(file => {
             if (file.endsWith('.svg')) {
                 const code = file.replace('.svg', '').toLowerCase();
-                const svg = fs.readFileSync(path.join(this.flagsPath, file), 'utf-8');
-
-                this.flags.set(code, {
-                    code,
-                    name: this.getCountryName(code),
-                    svg
-                });
+                const svg = fs.readFileSync(path.join(flagsPath, file), 'utf-8');
+                flagData[code] = svg;
             }
         });
-    }
 
-    getCountryName(code) {
-        return countryNames[code] || code.toUpperCase();
-    }
-
-    resizeSVG(svg, options = {}) {
-        // If width is provided, ensure height is exactly half of width
-        if (options.width) {
-            const width = options.width;
-            const height = width / 2; // This enforces 2:1 ratio
-            return svg.replace(
-                /<svg[^>]*>/,
-                `<svg width="${width}" height="${height}" viewBox="0 0 ${this.originalWidth} ${this.originalHeight}">`
-            );
-        }
-
-        // If height is provided, ensure width is exactly double
-        if (options.height) {
-            const height = options.height;
-            const width = height * 2; // This enforces 2:1 ratio
-            return svg.replace(
-                /<svg[^>]*>/,
-                `<svg width="${width}" height="${height}" viewBox="0 0 ${this.originalWidth} ${this.originalHeight}">`
-            );
-        }
-
-        // If no dimensions provided, return original size (900x450)
-        return svg.replace(
-            /<svg[^>]*>/,
-            `<svg width="${this.originalWidth}" height="${this.originalHeight}" viewBox="0 0 ${this.originalWidth} ${this.originalHeight}">`
-        );
-    }
-
-    getAllFlags() {
-        return Array.from(this.flags.values());
-    }
-
-    getFlag(countryCode, options) {
-        const flag = this.flags.get(countryCode.toLowerCase());
-
-        if (!flag) return null;
-
-        if (options) {
-            return {
-                ...flag,
-                svg: this.resizeSVG(flag.svg, options)
-            };
-        }
-
-        return flag;
-    }
-
-    getFlagAsDataURL(countryCode, options) {
-        const flag = this.getFlag(countryCode, options);
-        if (!flag) return null;
-
-        return `data:image/svg+xml;base64,${Buffer.from(flag.svg).toString('base64')}`;
-    }
-
-    searchFlags(query) {
-        const searchTerm = query.toLowerCase();
-        return Array.from(this.flags.values()).filter(flag =>
-            flag.name.toLowerCase().includes(searchTerm) ||
-            flag.code.toLowerCase().includes(searchTerm)
-        );
+        return new CountryFlags({ flagData, countryNames });
+    } else {
+        // Browser environment
+        const flagData = await loadFlagData();
+        return new CountryFlags({ flagData, countryNames });
     }
 }
 
-// Utility functions
-CountryFlags.validateCountryCode = (code) => {
-    return /^[a-zA-Z]{2}$/.test(code);
-};
-
-CountryFlags.getFlagEmoji = (countryCode) => {
-    const codePoints = countryCode
-        .toUpperCase()
-        .split('')
-        .map(char => 127397 + char.charCodeAt(0));
-    return String.fromCodePoint(...codePoints);
-};
-
-module.exports = CountryFlags;
+export { createCountryFlags, CountryFlags };
