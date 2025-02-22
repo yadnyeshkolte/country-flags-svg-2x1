@@ -1,30 +1,31 @@
 {
   "name": "country-flags-svg-2x1",
-  "version": "1.0.1",
-  "description": "A collection of SVG country flags with utility functions",
-  "type": "module",
-  "main": "src/index.js",
-  "exports": {
-    "import": "./src/index.js",
-    "require": "./dist/index.cjs"
-  },
+  "version": "1.0.0",
+  "description": "Collection of SVG country flags in 2:1 ratio",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "browser": "dist/index.umd.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
-    "test": "mocha test/test.js",
-    "test:browser": "karma start",
     "build": "rollup -c",
-    "prepare": "npm run build"
+    "test": "jest"
   },
-  "dependencies": {},
+  "keywords": [
+    "flags",
+    "svg",
+    "countries",
+    "country-flags"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "^15.0.0",
-    "chai": "^4.3.7",
-    "jsdom": "^21.1.0",
-    "karma": "^6.4.0",
-    "karma-chrome-launcher": "^3.1.0",
-    "karma-mocha": "^2.0.1",
-    "karma-webpack": "^5.0.0",
-    "mocha": "^10.2.0",
-    "rollup": "^3.20.0",
-    "webpack": "^5.75.0"
+    "@rollup/plugin-json": "^4.1.0",
+    "rollup": "^2.79.1",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-commonjs": "^22.0.2"
   }
 }

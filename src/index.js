@@ -1,40 +1,48 @@
-// index.js
-import { CountryFlags } from './CountryFlags.js';
-import { loadFlagData, countryNames } from './flagDataLoader.js';
+import { flags } from './flags';
 
-// Detect environment
-const isNode = typeof process !== 'undefined' &&
-    process.versions != null &&
-    process.versions.node != null;
+export class CountryFlags {
+    constructor() {
+        this.flags = flags;
+    }
 
-async function createCountryFlags() {
-    if (isNode) {
-        // Node.js environment
-        const fs = await import('fs');
-        const path = await import('path');
-        const { fileURLToPath } = await import('url');
+    /**
+     * Get flag URL by country code
+     * @param {string} countryCode - Two letter country code (ISO 3166-1 alpha-2)
+     * @returns {string|null} Flag URL or null if not found
+     */
+    getFlagUrl(countryCode) {
+        const code = countryCode.toLowerCase();
+        return this.flags[code] || null;
+    }
 
-        const __filename = fileURLToPath(import.meta.url);
-        const __dirname = path.dirname(__filename);
+    /**
+     * Get SVG element for a country flag
+     * @param {string} countryCode - Two letter country code (ISO 3166-1 alpha-2)
+     * @returns {Promise<SVGElement|null>} SVG element or null if not found
+     */
+    async getFlagElement(countryCode) {
+        const url = this.getFlagUrl(countryCode);
+        if (!url) return null;
 
-        const flagsPath = path.join(__dirname, '../flags');
-        const flagData = {};
+        try {
+            const response = await fetch(url);
+            const svgText = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(svgText, 'image/svg+xml');
+            return doc.documentElement;
+        } catch (error) {
+            console.error('Error fetching flag:', error);
+            return null;
+        }
+    }
 
-        const files = fs.readdirSync(flagsPath);
-        files.forEach(file => {
-            if (file.endsWith('.svg')) {
-                const code = file.replace('.svg', '').toLowerCase();
-                const svg = fs.readFileSync(path.join(flagsPath, file), 'utf-8');
-                flagData[code] = svg;
-            }
-        });
-
-        return new CountryFlags({ flagData, countryNames });
-    } else {
-        // Browser environment
-        const flagData = await loadFlagData();
-        return new CountryFlags({ flagData, countryNames });
+    /**
+     * Get all available country codes
+     * @returns {string[]} Array of country codes
+     */
+    getAllCountryCodes() {
+        return Object.keys(this.flags);
     }
 }
 
-export { createCountryFlags, CountryFlags };
+export default CountryFlags;
