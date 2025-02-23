@@ -1,21 +1,25 @@
 <svg width="900" height="450" viewBox="0 0 900 450" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="900" height="450" fill="#1E1E1E"/>
-<g clip-path="url(#clip0_0_1)">
-<rect width="900" height="450" fill="white"/>
-<mask id="mask0_0_1" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="450">
-<path d="M0 -3.37219e-06H900V450H0V-3.37219e-06Z" fill="white"/>
+<g clip-path="url(#clip0_763_2046)">
+<path d="M900 0H0V450H900V0Z" fill="#1E1E1E"/>
+<mask id="mask0_763_2046" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="450">
+<path d="M900 0H0V450H900V0Z" fill="white"/>
 </mask>
-<g mask="url(#mask0_0_1)">
-<path d="M0 -3.37219e-06H900V450H0V-3.37219e-06Z" fill="white"/>
-<path d="M0 -3.37219e-06H900V450H0V-3.37219e-06Z" fill="white"/>
-<path d="M0 -3.37219e-06H900V450H0V-3.37219e-06Z" fill="#1E1E1E"/>
-<path d="M0 -3.37219e-06H900V450H0V-3.37219e-06Z" fill="#009E49"/>
+<g mask="url(#mask0_763_2046)">
+<path d="M900 0H0V450H900V0Z" fill="white"/>
+<mask id="mask1_763_2046" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="450">
+<path d="M0 0H900V450H0V0Z" fill="white"/>
+</mask>
+<g mask="url(#mask1_763_2046)">
+<path d="M0 0H900V450H0V0Z" fill="white"/>
+<path d="M0 0H900V450H0V0Z" fill="white"/>
+<path d="M0 0H900V450H0V0Z" fill="#1E1E1E"/>
+<path d="M0 0H900V450H0V0Z" fill="#009E49"/>
 </g>
-<mask id="mask1_0_1" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="225">
-<path d="M0 -3.37219e-06H900V225H0V-3.37219e-06Z" fill="white"/>
+<mask id="mask2_763_2046" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="225">
+<path d="M0 0H900V225H0V0Z" fill="white"/>
 </mask>
-<g mask="url(#mask1_0_1)">
-<path d="M0 -3.37219e-06H900V224.334H0V-3.37219e-06Z" fill="#EF2B2D"/>
+<g mask="url(#mask2_763_2046)">
+<path d="M0 0H900V224.334H0V0Z" fill="#EF2B2D"/>
 </g>
 <path d="M449.964 135L419.104 229.964L466.589 245.391" fill="#FCD116"/>
 <path d="M449.964 135L480.818 229.964L433.333 245.391" fill="#FCD116"/>
@@ -28,8 +32,9 @@
 <path d="M355 203.995L435.781 262.687L465.125 222.297" fill="#FCD116"/>
 <path d="M355 203.995H454.849V253.922" fill="#FCD116"/>
 </g>
+</g>
 <defs>
-<clipPath id="clip0_0_1">
+<clipPath id="clip0_763_2046">
 <rect width="900" height="450" fill="white"/>
 </clipPath>
 </defs>
