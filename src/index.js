@@ -62,8 +62,8 @@ export class CountryFlags {
             if (!element) return null;
 
             // Apply sizing if provided
-            if (options.width) element.setAttribute('width', `${options.width}px`);
-            if (options.height) element.setAttribute('height', `${options.height}px`);
+            //if (options.width) element.setAttribute('width', `${options.width}px`);
+            //if (options.height) element.setAttribute('height', `${options.height}px`);
 
             return {
                 code,
