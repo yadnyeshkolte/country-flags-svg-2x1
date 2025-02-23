@@ -1,15 +1,17 @@
 <svg width="900" height="450" viewBox="0 0 900 450" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="900" height="450" fill="#1E1E1E"/>
-<g clip-path="url(#clip0_0_1)">
-<mask id="mask0_0_1" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="450">
+<g clip-path="url(#clip0_764_2031)">
+<path d="M900 0H0V450H900V0Z" fill="#1E1E1E"/>
+<mask id="mask0_764_2031" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="450">
+<path d="M900 0H0V450H900V0Z" fill="white"/>
+</mask>
+<g mask="url(#mask0_764_2031)">
+<mask id="mask1_764_2031" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="450">
 <path d="M0 0H900V450H0V0Z" fill="white"/>
 </mask>
-<g mask="url(#mask0_0_1)">
+<g mask="url(#mask1_764_2031)">
 <path d="M900 0H0V450" fill="#009E49"/>
 <path d="M0 450H900V0" fill="#CE1126"/>
-<path d="M0 450L900 0Z" fill="black"/>
 <path d="M0 450L900 0" stroke="#FCD116" stroke-width="210"/>
-<path d="M0 450L900 0Z" fill="black"/>
 <path d="M0 450L900 0" stroke="black" stroke-width="150"/>
 </g>
 <path d="M557.849 96.0818L567.666 158.312L598.781 153.404" fill="white"/>
@@ -33,8 +35,9 @@
 <path d="M249.424 301.834L311.642 311.728L316.589 280.618" fill="white"/>
 <path d="M249.424 301.834L305.575 273.267L319.858 301.343" fill="white"/>
 </g>
+</g>
 <defs>
-<clipPath id="clip0_0_1">
+<clipPath id="clip0_764_2031">
 <rect width="900" height="450" fill="white"/>
 </clipPath>
 </defs>

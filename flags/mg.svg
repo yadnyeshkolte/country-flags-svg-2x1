@@ -1,28 +1,33 @@
 <svg width="900" height="450" viewBox="0 0 900 450" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="900" height="450" fill="#1E1E1E"/>
-<g clip-path="url(#clip0_0_1)">
-<mask id="mask0_0_1" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="450">
-<path d="M0 -3.37219e-06H900V450H0V-3.37219e-06Z" fill="white"/>
+<g clip-path="url(#clip0_764_4013)">
+<path d="M900 0H0V450H900V0Z" fill="#1E1E1E"/>
+<mask id="mask0_764_4013" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="450">
+<path d="M900 0H0V450H900V0Z" fill="white"/>
 </mask>
-<g mask="url(#mask0_0_1)">
-<path d="M0 -3.37219e-06H900V450H0V-3.37219e-06Z" fill="white"/>
-<path d="M0 -3.37219e-06H900V450H0V-3.37219e-06Z" fill="white"/>
+<g mask="url(#mask0_764_4013)">
+<mask id="mask1_764_4013" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="450">
+<path d="M0 0H900V450H0V0Z" fill="white"/>
+</mask>
+<g mask="url(#mask1_764_4013)">
+<path d="M0 0H900V450H0V0Z" fill="white"/>
+<path d="M0 0H900V450H0V0Z" fill="white"/>
 </g>
-<mask id="mask1_0_1" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="225" y="0" width="700" height="450">
+<mask id="mask2_764_4013" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="225" y="0" width="700" height="450">
 <path d="M225 -3.37219e-06H925V450H225V-3.37219e-06Z" fill="white"/>
 </mask>
-<g mask="url(#mask1_0_1)">
+<g mask="url(#mask2_764_4013)">
 <path d="M225 -3.37219e-06H925V450H225V-3.37219e-06Z" fill="#007E3A"/>
 </g>
-<mask id="mask2_0_1" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="225" y="0" width="700" height="225">
+<mask id="mask3_764_4013" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="225" y="0" width="700" height="225">
 <path d="M225 -3.37219e-06H925V225H225V-3.37219e-06Z" fill="white"/>
 </mask>
-<g mask="url(#mask2_0_1)">
+<g mask="url(#mask3_764_4013)">
 <path d="M225 -3.37219e-06H925V224.334H225V-3.37219e-06Z" fill="#FC3D32"/>
 </g>
 </g>
+</g>
 <defs>
-<clipPath id="clip0_0_1">
+<clipPath id="clip0_764_4013">
 <rect width="900" height="450" fill="white"/>
 </clipPath>
 </defs>
