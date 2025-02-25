@@ -10,7 +10,7 @@ yarn add svg-country-flags-2x1
 # or
 pnpm add svg-country-flags-2x1
 ```
-![Flags](assets/image.png)
+![Flags](https://raw.githubusercontent.com/yadnyeshkolte/country-flags-svg-2x1/main/assets/image.png)
 
 ## Basic Usage
 
