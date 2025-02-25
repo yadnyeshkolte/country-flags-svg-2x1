@@ -1,25 +1,29 @@
 <svg width="900" height="450" viewBox="0 0 900 450" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="900" height="450" fill="#1E1E1E"/>
-<g clip-path="url(#clip0_0_1)">
-<rect width="900" height="450" fill="white"/>
+<g clip-path="url(#clip0_763_1208)">
 <path d="M900 0H0V450H900V0Z" fill="#1E1E1E"/>
-<mask id="mask0_0_1" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="450">
+<mask id="mask0_763_1208" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="450">
 <path d="M900 0H0V450H900V0Z" fill="white"/>
 </mask>
-<g mask="url(#mask0_0_1)">
-<mask id="mask1_0_1" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="450">
+<g mask="url(#mask0_763_1208)">
+<path d="M900 0H0V450H900V0Z" fill="white"/>
+<path d="M900 0H0V450H900V0Z" fill="#1E1E1E"/>
+<mask id="mask1_763_1208" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="450">
+<path d="M900 0H0V450H900V0Z" fill="white"/>
+</mask>
+<g mask="url(#mask1_763_1208)">
+<mask id="mask2_763_1208" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="450">
 <path d="M0 0H900V450H0V0Z" fill="white"/>
 </mask>
-<g mask="url(#mask1_0_1)">
+<g mask="url(#mask2_763_1208)">
 <path d="M0 0H900V450H0V0Z" fill="white"/>
 <path d="M0 0H900V450H0V0Z" fill="white"/>
 <path d="M0 0H900V450H0V0Z" fill="#1E1E1E"/>
 <path d="M0 0H900V450H0V0Z" fill="#74ACDF"/>
 </g>
-<mask id="mask2_0_1" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="149" width="900" height="151">
+<mask id="mask3_763_1208" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="149" width="900" height="151">
 <path d="M0 149.333H900V299.333H0V149.333Z" fill="white"/>
 </mask>
-<g mask="url(#mask2_0_1)">
+<g mask="url(#mask3_763_1208)">
 <path d="M0 149.779H900V298.898H0V149.779Z" fill="white"/>
 </g>
 <path d="M447.187 225.651L475.599 287.552C475.599 287.552 476.088 288.734 476.875 288.406C477.667 288.083 477.177 286.901 477.177 286.901L453.495 223.036M452.818 247.12C452.469 256.536 458.26 261.713 457.505 270.12C456.75 278.526 461.365 283.281 462.437 286.547C463.505 289.818 461.276 291.776 462.24 292.24C463.198 292.703 465.302 290.12 464.62 285.474C463.932 280.828 460.406 279.448 461.234 269.177C462.062 258.911 457.031 256.521 458.255 247.151" fill="#F6B40E"/>
@@ -86,8 +90,9 @@
 <path d="M435.656 221.787C439.281 224.563 442.906 224.349 445.042 223.068C447.177 221.787 447.177 221.359 446.75 221.359C446.323 221.359 445.896 221.787 444.188 222.641C442.479 223.495 439.922 223.495 435.656 221.787Z" fill="#85340A"/>
 </g>
 </g>
+</g>
 <defs>
-<clipPath id="clip0_0_1">
+<clipPath id="clip0_763_1208">
 <rect width="900" height="450" fill="white"/>
 </clipPath>
 </defs>

@@ -16,62 +16,6 @@ export class CountryFlags {
         const code = countryCode.toLowerCase();
         return this.flags[code] || null;
     }
-
-
-
-    /**
-     * Process SVG to make it self-contained and safe for React
-     * @param {string} svgText - Raw SVG text
-     * @param {Object} options - Sizing options
-     * @returns {string} Processed SVG
-     */
-    processSvg(svgText, options = {}) {
-        // Create a temporary container to parse SVG
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(svgText, 'image/svg+xml');
-        const svg = doc.documentElement;
-
-        // Add unique class to scope styles
-        const uniqueClass = `flag-${Math.random().toString(36).substr(2, 9)}`;
-        svg.setAttribute('class', uniqueClass);
-
-        // Ensure SVG has viewBox if not present
-        if (!svg.getAttribute('viewBox')) {
-            const width = svg.getAttribute('width') || '1000';
-            const height = svg.getAttribute('height') || '500';
-            svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
-        }
-
-        // Set responsive dimensions while maintaining aspect ratio
-        svg.setAttribute('width', options.width ? `${options.width}px` : '100%');
-        svg.setAttribute('height', options.height ? `${options.height}px` : 'auto');
-        svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-
-        // Ensure all nested elements get the unique class
-        const allElements = svg.getElementsByTagName('*');
-        for (let i = 0; i < allElements.length; i++) {
-            const element = allElements[i];
-            const currentClass = element.getAttribute('class') || '';
-            element.setAttribute('class', `${currentClass} ${uniqueClass}-element`.trim());
-        }
-
-        // Add style tag with scoped styles
-        const styleTag = document.createElement('style');
-        styleTag.textContent = `
-            .${uniqueClass} {
-                display: inline-block;
-                vertical-align: middle;
-                shape-rendering: geometricPrecision;
-            }
-            .${uniqueClass}-element {
-                transform-origin: center center;
-            }
-        `;
-        svg.insertBefore(styleTag, svg.firstChild);
-
-        return svg.outerHTML;
-    }
-
     /**
      * Get SVG element for a country flag
      * @param {string} countryCode - Two letter country code (ISO 3166-1 alpha-2)
@@ -117,10 +61,14 @@ export class CountryFlags {
             const element = await this.getFlagElement(code);
             if (!element) return null;
 
+            // Apply sizing if provided
+            if (options.width) element.setAttribute('width', `${options.width}px`);
+            if (options.height) element.setAttribute('height', `${options.height}px`);
+
             return {
                 code,
                 name: this.countryData[code]?.name || code.toUpperCase(),
-                svg: this.processSvg(element.outerHTML, options)
+                svg: element.outerHTML
             };
         } catch (error) {
             console.error('Error getting flag:', error);

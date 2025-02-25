@@ -1,10 +1,14 @@
 <svg width="900" height="450" viewBox="0 0 900 450" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="900" height="450" fill="#1E1E1E"/>
-<g clip-path="url(#clip0_0_1)">
-<rect width="900" height="450" fill="white"/>
-<rect width="900" height="450" fill="black"/>
-<rect width="900" height="300" fill="white"/>
-<rect width="900" height="150" fill="#CE1126"/>
+<g clip-path="url(#clip0_763_12763)">
+<path d="M900 0H0V450H900V0Z" fill="#1E1E1E"/>
+<mask id="mask0_763_12763" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="450">
+<path d="M900 0H0V450H900V0Z" fill="white"/>
+</mask>
+<g mask="url(#mask0_763_12763)">
+<path d="M900 0H0V450H900V0Z" fill="white"/>
+<path d="M900 0H0V450H900V0Z" fill="black"/>
+<path d="M900 0H0V300H900V0Z" fill="white"/>
+<path d="M900 0H0V150H900V0Z" fill="#CE1126"/>
 <path d="M449.628 294C463.905 294 477.564 292.867 485.575 290.612C488.964 289.995 488.964 288.25 488.964 285.994C492.357 284.866 490.607 280.861 492.969 280.861C490.607 281.478 490.097 276.861 487.219 277.478C487.219 273.472 483.214 272.961 479.825 274.089C473.043 276.35 461.027 276.861 449.628 276.861C438.223 276.35 426.308 276.35 419.43 274.089C416.037 272.961 412.036 273.472 412.036 277.478C409.159 276.861 408.643 281.478 406.281 280.861C408.643 280.861 406.898 284.866 410.286 285.994C410.286 288.25 410.286 289.995 413.781 290.612C421.686 292.867 435.351 294 449.628 294Z" fill="white" stroke="#FAC800" stroke-width="1.75235" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M417.155 279.733C416.027 279.733 416.027 280.35 417.155 280.35C417.665 280.35 417.665 279.733 417.155 279.733Z" fill="#FDD220" stroke="#FAC800" stroke-width="0.936198" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M417.155 277.478C416.538 277.478 416.538 278.605 417.155 278.605C418.287 278.605 418.287 277.478 417.155 277.478Z" fill="#FDD220" stroke="#FAC800" stroke-width="0.936198" stroke-linecap="round" stroke-linejoin="round"/>
@@ -85,8 +89,9 @@
 <path d="M446.73 158.645C445.602 158.645 445.602 160.384 446.73 160.384C447.863 160.39 447.863 158.645 446.73 158.645Z" fill="white" stroke="white" stroke-width="0.936198" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M456.592 202.153V237.969C454.539 240.225 452.177 242.172 449.608 243.917C447.039 242.172 444.677 240.225 442.623 237.969V202.047C445.193 201.127 447.554 199.893 449.608 198.355C451.56 199.994 453.922 201.228 456.592 202.153Z" fill="white"/>
 </g>
+</g>
 <defs>
-<clipPath id="clip0_0_1">
+<clipPath id="clip0_763_12763">
 <rect width="900" height="450" fill="white"/>
 </clipPath>
 </defs>

@@ -1,16 +1,19 @@
 <svg width="900" height="450" viewBox="0 0 900 450" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="900" height="450" fill="#1E1E1E"/>
-<g clip-path="url(#clip0_0_1)">
-<mask id="mask0_0_1" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="450">
-<path d="M0 -3.37219e-06H900V450H0V-3.37219e-06Z" fill="white"/>
+<g clip-path="url(#clip0_765_9404)">
+<path d="M900 0H0V450H900V0Z" fill="#1E1E1E"/>
+<mask id="mask0_765_9404" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="450">
+<path d="M900 0H0V450H900V0Z" fill="white"/>
 </mask>
-<g mask="url(#mask0_0_1)">
-<path d="M0 -3.37219e-06H900V450H0V-3.37219e-06Z" fill="white"/>
-<path d="M0 -3.37219e-06H900V450H0V-3.37219e-06Z" fill="white"/>
-<path d="M0 450V-3.37219e-06H900L0 450Z" fill="#0051BA"/>
-<path d="M0 450H900V-3.37219e-06L0 450Z" fill="#215B33"/>
-<path d="M-4.76837e-07 450L900 -3.37219e-06Z" fill="black"/>
-<path d="M-4.76837e-07 450L900 -3.37219e-06" stroke="#FCD116" stroke-width="40.4401"/>
+<g mask="url(#mask0_765_9404)">
+<mask id="mask1_765_9404" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="450">
+<path d="M0 0H900V450H0V0Z" fill="white"/>
+</mask>
+<g mask="url(#mask1_765_9404)">
+<path d="M0 0H900V450H0V0Z" fill="white"/>
+<path d="M0 0H900V450H0V0Z" fill="white"/>
+<path d="M0 450V0H900L0 450Z" fill="#0051BA"/>
+<path d="M0 450H900V0L0 450Z" fill="#215B33"/>
+<path d="M0 450L900 0" stroke="#FCD116" stroke-width="40.4401"/>
 </g>
 <path d="M157.932 89.8646L144.047 132.599L165.417 139.542L157.932 89.8646Z" fill="white"/>
 <path d="M157.932 89.8646L171.818 132.599L150.453 139.542L157.932 89.8646Z" fill="white"/>
@@ -63,8 +66,9 @@
 <path d="M95.6406 247.182L59.2864 220.771L72.4948 202.594L95.6406 247.182Z" fill="white"/>
 <path d="M95.6406 247.182L81.7552 204.448L60.3906 211.391L95.6406 247.182Z" fill="white"/>
 </g>
+</g>
 <defs>
-<clipPath id="clip0_0_1">
+<clipPath id="clip0_765_9404">
 <rect width="900" height="450" fill="white"/>
 </clipPath>
 </defs>
