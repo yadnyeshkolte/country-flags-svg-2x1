@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 .npmignore
+.npmrc
+package-github.json
 
 # Editor directories and files
 .vscode/*
