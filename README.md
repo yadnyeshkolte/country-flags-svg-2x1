@@ -1,14 +1,14 @@
-# country-flags-svg-2x1
+# svg-country-flags-2x1
 A lightweight, flexible package for working with detailed country flags in JavaScript applications. Get access to flag SVGs, emoji, and country data. All flags maintain a 2:1 aspect ratio.
 
 ## Installation
 
 ```bash
-npm install country-flags-svg-2x1
+npm install svg-country-flags-2x1
 # or
-yarn add country-flags-svg-2x1
+yarn add svg-country-flags-2x1
 # or
-pnpm add country-flags-svg-2x1
+pnpm add svg-country-flags-2x1
 ```
 ![Flags](assets/image.png)
 
@@ -18,10 +18,10 @@ pnpm add country-flags-svg-2x1
 
 ```javascript
 // ES Modules
-import { CountryFlags } from 'country-flags-svg-2x1';
+import { CountryFlags } from 'svg-country-flags-2x1';
 
 // CommonJS
-const { CountryFlags } = require('country-flags-svg-2x1');
+const { CountryFlags } = require('svg-country-flags-2x1');
 ```
 
 ### Creating an Instance
@@ -144,7 +144,7 @@ const isValid = CountryFlags.validateCountryCode('us');
 
 ```jsx
 import { useState, useEffect } from 'react';
-import { CountryFlags } from 'country-flags-svg-2x1';
+import { CountryFlags } from 'svg-country-flags-2x1';
 
 const CountryFlag = ({ countryCode, width }) => {
   const [flagSvg, setFlagSvg] = useState('');
@@ -179,7 +179,7 @@ function App() {
 
 ```jsx
 import { useState } from 'react';
-import { CountryFlags } from 'country-flags-svg-2x1';
+import { CountryFlags } from 'svg-country-flags-2x1';
 
 const FlagSearch = () => {
   const [query, setQuery] = useState('');
@@ -229,7 +229,7 @@ const FlagSearch = () => {
 </template>
 
 <script>
-import { CountryFlags } from 'country-flags-svg-2x1';
+import { CountryFlags } from 'svg-country-flags-2x1';
 
 export default {
   name: 'CountryFlag',
@@ -274,7 +274,7 @@ export default {
 </template>
 
 <script>
-import { CountryFlags } from 'country-flags-svg-2x1';
+import { CountryFlags } from 'svg-country-flags-2x1';
 
 export default {
   name: 'FlagGallery',
@@ -320,7 +320,7 @@ The package works in all modern browsers that support SVG and the Fetch API. For
 The package includes TypeScript type definitions. You can import types as follows:
 
 ```typescript
-import { CountryFlags, FlagOptions, FlagDetails } from 'country-flags-svg-2x1';
+import { CountryFlags, FlagOptions, FlagDetails } from 'svg-country-flags-2x1';
 ```
 
 ## Troubleshooting

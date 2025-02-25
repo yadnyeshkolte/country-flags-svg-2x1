@@ -1,7 +1,7 @@
 {
-  "name": "country-flags-svg-2x1",
+  "name": "-svg-country-flags-2x1",
   "version": "1.0.0",
-  "description": "Collection of SVG country flags in 2:1 ratio",
+  "description": "Collection of detailed SVG country flags in 2:1 ratio",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "browser": "dist/index.umd.js",
