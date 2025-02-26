@@ -2,11 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>svg-country-flags-2x1 Demo</title>
+    <title>svg-country-flags-2x1</title>
     <link rel="stylesheet" href="styles.css">
     <!-- Import the package from CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/svg-country-flags-2x1/dist/bundle.min.js"></script>
+    <!-- Use the UMD build from the dist folder -->
+    <script>
+        // Helper function to load scripts and notify when they fail
+        function loadScript(src, callback, errorCallback) {
+            const script = document.createElement('script');
+            script.src = src;
+            script.onload = callback;
+            script.onerror = function() {
+                console.error('Failed to load script:', src);
+                if (errorCallback) errorCallback();
+            };
+            document.head.appendChild(script);
+        }
+
+        // Try to load the package from multiple possible paths
+        loadScript('https://cdn.jsdelivr.net/npm/svg-country-flags-2x1/dist/index.umd.js',
+            function() { console.log('Loaded UMD build successfully'); },
+            function() {
+                // If UMD fails, try ESM
+                loadScript('https://cdn.jsdelivr.net/npm/svg-country-flags-2x1/dist/index.esm.js',
+                    function() { console.log('Loaded ESM build successfully'); },
+                    function() {
+                        // If ESM fails, try CJS
+                        loadScript('https://cdn.jsdelivr.net/npm/svg-country-flags-2x1/dist/index.js',
+                            function() { console.log('Loaded CJS build successfully'); },
+                            function() {
+                                // If all fail, try the latest version with any file
+                                loadScript('https://cdn.jsdelivr.net/npm/svg-country-flags-2x1',
+                                    function() { console.log('Loaded default package entry successfully'); },
+                                    function() {
+                                        document.body.innerHTML = '<div style="color: red; padding: 30px;">Failed to load the svg-country-flags-2x1 package. Please check that it is published correctly on npm.</div>';
+                                    }
+                                );
+                            }
+                        );
+                    }
+                );
+            }
+        );
+    </script>
 </head>
 <body>
 <header>
@@ -79,7 +119,7 @@ const emoji = CountryFlags.getFlagEmoji('jp'); // Returns 🇯🇵</code></pre>
 </main>
 
 <footer>
-    <p>Created by <a href="https://github.com/yadnyeshkolte">Yadnyesh Kolte</a> | MIT License</p>
+    <p>Created by <a href="https://github.com/yadnyeshkolte">Yadnyesh</a> | MIT License</p>
 </footer>
 
 <script src="script.js"></script>

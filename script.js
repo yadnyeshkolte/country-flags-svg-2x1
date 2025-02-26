@@ -1,33 +1,87 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    // Check if the package is available globally
-    if (typeof window.svgCountryFlags2x1 === 'undefined') {
-        console.error('svg-country-flags-2x1 package not found. Make sure the CDN script is loaded correctly.');
-        displayError('Package not loaded correctly. Please check the console for details.');
+    // Debug to see what's available in the global scope
+    console.log("Available globals:", Object.keys(window).filter(key =>
+        key.toLowerCase().includes('flag') ||
+        key.toLowerCase().includes('country') ||
+        key.toLowerCase().includes('svg')
+    ));
+
+    // Try to find the CountryFlags constructor
+    let CountryFlagsClass;
+
+    // Option 1: Direct access
+    if (typeof window.CountryFlags === 'function') {
+        CountryFlagsClass = window.CountryFlags;
+    }
+    // Option 2: Module with named export
+    else if (window.svgCountryFlags2x1 && typeof window.svgCountryFlags2x1.CountryFlags === 'function') {
+        CountryFlagsClass = window.svgCountryFlags2x1.CountryFlags;
+    }
+    // Option 3: Package name variations
+    else if (window.svgCountryFlags && typeof window.svgCountryFlags.CountryFlags === 'function') {
+        CountryFlagsClass = window.svgCountryFlags.CountryFlags;
+    }
+    // Option 4: Try UMD export name variations
+    else {
+        // Look for any object that might contain our class
+        for (const key of Object.keys(window)) {
+            if (typeof window[key] === 'object' && window[key] !== null) {
+                if (typeof window[key].CountryFlags === 'function') {
+                    CountryFlagsClass = window[key].CountryFlags;
+                    break;
+                }
+            } else if (typeof window[key] === 'function' &&
+                (key.includes('Flag') || key.includes('flag') || key.includes('Country') || key.includes('country'))) {
+                CountryFlagsClass = window[key];
+                break;
+            }
+        }
+    }
+
+    if (!CountryFlagsClass) {
+        console.error('CountryFlags class not found. Make sure the library is loaded correctly.');
+        displayError('Library not loaded correctly. Please check the console for details.');
         return;
     }
 
-    // Create a new instance of CountryFlags
-    const { CountryFlags } = window.svgCountryFlags2x1;
-    const flags = new CountryFlags();
+    console.log("Found CountryFlags class:", CountryFlagsClass);
 
-    // Initialize demos
-    await initFlagShowcase(flags);
-    initFlagSearch(flags);
-    await initSingleFlagDemo(flags);
+    try {
+        // Create a new instance of CountryFlags
+        const flags = new CountryFlagsClass();
+        console.log("Flags instance:", flags);
+
+        // Test a method to confirm it's working
+        const testCode = 'us';
+        const testFlag = await flags.getFlag(testCode, { width: 100 });
+        console.log(`Test flag (${testCode}):`, testFlag);
+
+        // Initialize demos if the test was successful
+        if (testFlag) {
+            await initFlagShowcase(flags, CountryFlagsClass);
+            initFlagSearch(flags);
+            await initSingleFlagDemo(flags, CountryFlagsClass);
+        } else {
+            displayError('Could not retrieve test flag. Library methods may not be working correctly.');
+        }
+    } catch (error) {
+        console.error('Error initializing library:', error);
+        displayError('Error initializing the flags library. Please check the console for details.');
+    }
 });
 
 // Display error messages
 function displayError(message) {
     const sections = document.querySelectorAll('section');
     sections.forEach(section => {
-        section.innerHTML = `<div class="error">${message}</div>`;
+        section.innerHTML = `<div class="error" style="color: red; padding: 20px; border: 1px solid red; border-radius: 4px; background-color: #fff5f5;">${message}</div>`;
     });
 }
 
 // Initialize the flag showcase
-async function initFlagShowcase(flags) {
+async function initFlagShowcase(flags, CountryFlagsClass) {
     const container = document.getElementById('showcase-container');
-    const showcaseFlags = ['us', 'ca', 'gb', 'fr', 'de', 'jp', 'br', 'in', 'au', 'za', 'mx', 'ru'];
+    const showcaseFlags = ['in', 'ru', 'br', 'za', 'jp', 'cn', 'us', 'ca', 'gb', 'de', 'au', 'mx'];
 
     for (const code of showcaseFlags) {
         try {
@@ -88,7 +142,7 @@ function initFlagSearch(flags) {
 }
 
 // Initialize the single flag selection demo
-async function initSingleFlagDemo(flags) {
+async function initSingleFlagDemo(flags, CountryFlagsClass) {
     const select = document.getElementById('country-select');
     const selectedFlag = document.getElementById('selected-flag');
     const countryName = document.getElementById('country-name');
@@ -129,7 +183,13 @@ async function initSingleFlagDemo(flags) {
                 selectedFlag.innerHTML = flag.svg;
                 countryName.textContent = `Country: ${flag.name}`;
                 countryCode.textContent = `Code: ${flag.code.toUpperCase()}`;
-                flagEmoji.textContent = `Emoji: ${CountryFlags.getFlagEmoji(code)}`;
+
+                // Check if getFlagEmoji is a static method
+                const emoji = typeof CountryFlagsClass.getFlagEmoji === 'function'
+                    ? CountryFlagsClass.getFlagEmoji(code)
+                    : (flags.getFlagEmoji ? flags.getFlagEmoji(code) : '');
+
+                flagEmoji.textContent = `Emoji: ${emoji || '(Not available)'}`;
             }
         } catch (error) {
             console.error(`Error loading flag ${code}:`, error);

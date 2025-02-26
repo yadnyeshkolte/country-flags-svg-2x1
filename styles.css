@@ -84,6 +84,11 @@ h2 {
     margin-top: 30px;
 }
 
+#showcase-container .flag-item svg {
+    max-height: 75px; /* Adjust this value as needed */
+}
+
+/* Add consistent height to flag items to prevent varying heights */
 .flag-item {
     display: flex;
     flex-direction: column;
@@ -93,6 +98,9 @@ h2 {
     box-shadow: var(--box-shadow);
     transition: transform 0.3s;
     background-color: white;
+    /* Enforce more consistent sizing */
+    height: 100%;
+    justify-content: space-between;
 }
 
 .flag-item:hover {
@@ -104,6 +112,9 @@ h2 {
     height: auto;
     margin-bottom: 10px;
     border: 1px solid #eee;
+    /* Enforce aspect ratio */
+    aspect-ratio: 2 / 1; /* Country flags typically use 2:1 ratio */
+    object-fit: contain;
 }
 
 .flag-item p {
