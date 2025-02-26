@@ -1,73 +1,67 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    // Debug to see what's available in the global scope
-    console.log("Available globals:", Object.keys(window).filter(key =>
-        key.toLowerCase().includes('flag') ||
-        key.toLowerCase().includes('country') ||
-        key.toLowerCase().includes('svg')
-    ));
+    // Wait for a moment to ensure the script is fully loaded
+    setTimeout(async () => {
+        try {
+            // Clear detection approach - set default variables to null
+            let CountryFlagsLib = null;
+            let globalObjects = [];
 
-    // Try to find the CountryFlags constructor
-    let CountryFlagsClass;
-
-    // Option 1: Direct access
-    if (typeof window.CountryFlags === 'function') {
-        CountryFlagsClass = window.CountryFlags;
-    }
-    // Option 2: Module with named export
-    else if (window.svgCountryFlags2x1 && typeof window.svgCountryFlags2x1.CountryFlags === 'function') {
-        CountryFlagsClass = window.svgCountryFlags2x1.CountryFlags;
-    }
-    // Option 3: Package name variations
-    else if (window.svgCountryFlags && typeof window.svgCountryFlags.CountryFlags === 'function') {
-        CountryFlagsClass = window.svgCountryFlags.CountryFlags;
-    }
-    // Option 4: Try UMD export name variations
-    else {
-        // Look for any object that might contain our class
-        for (const key of Object.keys(window)) {
-            if (typeof window[key] === 'object' && window[key] !== null) {
-                if (typeof window[key].CountryFlags === 'function') {
-                    CountryFlagsClass = window[key].CountryFlags;
-                    break;
+            // Check if library is loaded and get key objects
+            // that might contain our library
+            for (const key in window) {
+                if (typeof window[key] === 'object' && window[key] !== null) {
+                    globalObjects.push({ name: key, value: window[key] });
                 }
-            } else if (typeof window[key] === 'function' &&
-                (key.includes('Flag') || key.includes('flag') || key.includes('Country') || key.includes('country'))) {
-                CountryFlagsClass = window[key];
-                break;
             }
+
+            console.log("Global objects:", globalObjects.map(obj => obj.name));
+
+            // Look specifically for the UMD build of svg-country-flags-2x1
+            if (window.svgCountryFlags2x1) {
+                CountryFlagsLib = window.svgCountryFlags2x1.CountryFlags;
+                console.log("Found via svgCountryFlags2x1");
+            }
+            // Direct global - from some UMD builds
+            else if (window.CountryFlags && typeof window.CountryFlags === 'function') {
+                CountryFlagsLib = window.CountryFlags;
+                console.log("Found via global CountryFlags");
+            }
+            // Generic search
+            else {
+                for (const obj of globalObjects) {
+                    if (obj.value.CountryFlags && typeof obj.value.CountryFlags === 'function') {
+                        CountryFlagsLib = obj.value.CountryFlags;
+                        console.log(`Found via ${obj.name}.CountryFlags`);
+                        break;
+                    }
+                }
+            }
+
+            if (!CountryFlagsLib) {
+                throw new Error('CountryFlags class not found');
+            }
+
+            console.log("CountryFlags constructor:", CountryFlagsLib);
+
+            // Test initialize
+            const flags = new CountryFlagsLib();
+            console.log("Flags instance created successfully:", flags);
+
+            // Check if we have access to the required methods
+            if (typeof flags.getFlag !== 'function' || typeof flags.getAllCountryCodes !== 'function') {
+                throw new Error('Required methods not found on flags instance');
+            }
+
+            // Initialize demos
+            await initShowcase(flags, CountryFlagsLib);
+            initSearch(flags);
+            await initSingleFlag(flags, CountryFlagsLib);
+
+        } catch (error) {
+            console.error('Initialization error:', error);
+            displayError(`Library initialization error: ${error.message}. Please check the console for details.`);
         }
-    }
-
-    if (!CountryFlagsClass) {
-        console.error('CountryFlags class not found. Make sure the library is loaded correctly.');
-        displayError('Library not loaded correctly. Please check the console for details.');
-        return;
-    }
-
-    console.log("Found CountryFlags class:", CountryFlagsClass);
-
-    try {
-        // Create a new instance of CountryFlags
-        const flags = new CountryFlagsClass();
-        console.log("Flags instance:", flags);
-
-        // Test a method to confirm it's working
-        const testCode = 'us';
-        const testFlag = await flags.getFlag(testCode, { width: 100 });
-        console.log(`Test flag (${testCode}):`, testFlag);
-
-        // Initialize demos if the test was successful
-        if (testFlag) {
-            await initFlagShowcase(flags, CountryFlagsClass);
-            initFlagSearch(flags);
-            await initSingleFlagDemo(flags, CountryFlagsClass);
-        } else {
-            displayError('Could not retrieve test flag. Library methods may not be working correctly.');
-        }
-    } catch (error) {
-        console.error('Error initializing library:', error);
-        displayError('Error initializing the flags library. Please check the console for details.');
-    }
+    }, 500);  // Wait 500ms to ensure script is fully loaded
 });
 
 // Display error messages
@@ -79,9 +73,9 @@ function displayError(message) {
 }
 
 // Initialize the flag showcase
-async function initFlagShowcase(flags, CountryFlagsClass) {
+async function initShowcase(flags, CountryFlagsLib) {
     const container = document.getElementById('showcase-container');
-    const showcaseFlags = ['in', 'ru', 'br', 'za', 'jp', 'cn', 'us', 'ca', 'gb', 'de', 'au', 'mx'];
+    const showcaseFlags = ['us', 'ca', 'gb', 'fr', 'de', 'jp', 'br', 'in', 'au', 'za', 'mx', 'ru'];
 
     for (const code of showcaseFlags) {
         try {
@@ -102,7 +96,7 @@ async function initFlagShowcase(flags, CountryFlagsClass) {
 }
 
 // Initialize the flag search functionality
-function initFlagSearch(flags) {
+function initSearch(flags) {
     const searchInput = document.getElementById('flag-search');
     const resultsContainer = document.getElementById('search-results');
 
@@ -142,58 +136,65 @@ function initFlagSearch(flags) {
 }
 
 // Initialize the single flag selection demo
-async function initSingleFlagDemo(flags, CountryFlagsClass) {
+async function initSingleFlag(flags, CountryFlagsLib) {
     const select = document.getElementById('country-select');
     const selectedFlag = document.getElementById('selected-flag');
     const countryName = document.getElementById('country-name');
     const countryCode = document.getElementById('country-code');
     const flagEmoji = document.getElementById('flag-emoji');
 
-    // Get all country codes
-    const countryCodes = flags.getAllCountryCodes();
+    try {
+        // Get all country codes
+        const countryCodes = flags.getAllCountryCodes();
 
-    // Get all flags to build the dropdown
-    const allFlags = await flags.getAllFlags();
+        // Get all flags to build the dropdown
+        const allFlags = await flags.getAllFlags();
 
-    // Sort by country name
-    allFlags.sort((a, b) => a.name.localeCompare(b.name));
+        // Sort by country name
+        allFlags.sort((a, b) => a.name.localeCompare(b.name));
 
-    // Populate dropdown
-    allFlags.forEach(flag => {
-        const option = document.createElement('option');
-        option.value = flag.code;
-        option.textContent = flag.name;
-        select.appendChild(option);
-    });
+        // Populate dropdown
+        allFlags.forEach(flag => {
+            const option = document.createElement('option');
+            option.value = flag.code;
+            option.textContent = flag.name;
+            select.appendChild(option);
+        });
 
-    // Handle selection change
-    select.addEventListener('change', async (e) => {
-        const code = e.target.value;
-        if (!code) {
-            selectedFlag.innerHTML = '';
-            countryName.textContent = '';
-            countryCode.textContent = '';
-            flagEmoji.textContent = '';
-            return;
-        }
-
-        try {
-            const flag = await flags.getFlag(code, { width: 300 });
-            if (flag) {
-                selectedFlag.innerHTML = flag.svg;
-                countryName.textContent = `Country: ${flag.name}`;
-                countryCode.textContent = `Code: ${flag.code.toUpperCase()}`;
-
-                // Check if getFlagEmoji is a static method
-                const emoji = typeof CountryFlagsClass.getFlagEmoji === 'function'
-                    ? CountryFlagsClass.getFlagEmoji(code)
-                    : (flags.getFlagEmoji ? flags.getFlagEmoji(code) : '');
-
-                flagEmoji.textContent = `Emoji: ${emoji || '(Not available)'}`;
+        // Handle selection change
+        select.addEventListener('change', async (e) => {
+            const code = e.target.value;
+            if (!code) {
+                selectedFlag.innerHTML = '';
+                countryName.textContent = '';
+                countryCode.textContent = '';
+                flagEmoji.textContent = '';
+                return;
             }
-        } catch (error) {
-            console.error(`Error loading flag ${code}:`, error);
-            selectedFlag.innerHTML = '<p>Error loading flag</p>';
-        }
-    });
+
+            try {
+                const flag = await flags.getFlag(code, { width: 300 });
+                if (flag) {
+                    selectedFlag.innerHTML = flag.svg;
+                    countryName.textContent = `Country: ${flag.name}`;
+                    countryCode.textContent = `Code: ${flag.code.toUpperCase()}`;
+
+                    // Check if getFlagEmoji is available as static or instance method
+                    let emoji = '';
+                    if (typeof CountryFlagsLib.getFlagEmoji === 'function') {
+                        emoji = CountryFlagsLib.getFlagEmoji(code);
+                    } else if (typeof flags.getFlagEmoji === 'function') {
+                        emoji = flags.getFlagEmoji(code);
+                    }
+
+                    flagEmoji.textContent = `Emoji: ${emoji || '(Not available)'}`;
+                }
+            } catch (error) {
+                console.error(`Error loading flag ${code}:`, error);
+                selectedFlag.innerHTML = '<p>Error loading flag</p>';
+            }
+        });
+    } catch (error) {
+        console.error('Error initializing dropdown:', error);
+    }
 }

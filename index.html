@@ -2,50 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="icon" type="image/svg+xml" href="public/logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>svg-country-flags-2x1</title>
     <link rel="stylesheet" href="styles.css">
     <!-- Import the package from CDN -->
     <!-- Use the UMD build from the dist folder -->
     <script>
-        // Helper function to load scripts and notify when they fail
-        function loadScript(src, callback, errorCallback) {
-            const script = document.createElement('script');
-            script.src = src;
-            script.onload = callback;
-            script.onerror = function() {
-                console.error('Failed to load script:', src);
-                if (errorCallback) errorCallback();
-            };
-            document.head.appendChild(script);
+        function loadLibrary() {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/svg-country-flags-2x1/dist/index.umd.js';
+                script.async = true;
+
+                script.onload = () => {
+                    console.log('Library loaded successfully');
+                    resolve();
+                };
+
+                script.onerror = () => {
+                    console.error('Failed to load library');
+                    reject(new Error('Failed to load library'));
+                };
+
+                document.head.appendChild(script);
+            });
         }
 
-        // Try to load the package from multiple possible paths
-        loadScript('https://cdn.jsdelivr.net/npm/svg-country-flags-2x1/dist/index.umd.js',
-            function() { console.log('Loaded UMD build successfully'); },
-            function() {
-                // If UMD fails, try ESM
-                loadScript('https://cdn.jsdelivr.net/npm/svg-country-flags-2x1/dist/index.esm.js',
-                    function() { console.log('Loaded ESM build successfully'); },
-                    function() {
-                        // If ESM fails, try CJS
-                        loadScript('https://cdn.jsdelivr.net/npm/svg-country-flags-2x1/dist/index.js',
-                            function() { console.log('Loaded CJS build successfully'); },
-                            function() {
-                                // If all fail, try the latest version with any file
-                                loadScript('https://cdn.jsdelivr.net/npm/svg-country-flags-2x1',
-                                    function() { console.log('Loaded default package entry successfully'); },
-                                    function() {
-                                        document.body.innerHTML = '<div style="color: red; padding: 30px;">Failed to load the svg-country-flags-2x1 package. Please check that it is published correctly on npm.</div>';
-                                    }
-                                );
-                            }
-                        );
-                    }
-                );
-            }
-        );
+        // Load the library before loading the main script
+        loadLibrary()
+            .then(() => {
+                const mainScript = document.createElement('script');
+                mainScript.src = 'script.js';
+                document.body.appendChild(mainScript);
+            })
+            .catch(error => {
+                document.body.innerHTML = `<div style="color: red; padding: 30px; text-align: center;">
+                <h2>Failed to load the svg-country-flags-2x1 package</h2>
+                <p>${error.message}</p>
+                <p>Please check that your package is published correctly on npm.</p>
+            </div>`;
+            });
     </script>
 </head>
 <body>
