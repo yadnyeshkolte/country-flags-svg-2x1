@@ -464,7 +464,215 @@ function initSingleFlag(flags, CountryFlagsLib) {
             loadingIndicator.textContent = 'Error loading countries. Please try again.';
             loadingIndicator.style.color = 'red';
         }
+        addZoomDragFunctionality();
     };
+
+
+    function addZoomDragFunctionality() {
+        const selectedFlag = document.getElementById('selected-flag');
+        const zoomControls = document.createElement('div');
+        zoomControls.className = 'zoom-controls';
+        zoomControls.style.display = 'none'; // Initially hidden until a flag is selected
+
+        // Create zoom buttons
+        const zoomIn = document.createElement('button');
+        zoomIn.textContent = '➕';
+        zoomIn.title = 'Zoom In';
+        zoomIn.className = 'zoom-button';
+
+        const zoomOut = document.createElement('button');
+        zoomOut.textContent = '➖';
+        zoomOut.title = 'Zoom Out';
+        zoomOut.className = 'zoom-button';
+
+        const resetZoom = document.createElement('button');
+        resetZoom.textContent = '⟲';
+        resetZoom.title = 'Reset Zoom';
+        resetZoom.className = 'zoom-button';
+
+        // Add buttons to controls
+        zoomControls.appendChild(zoomIn);
+        zoomControls.appendChild(resetZoom);
+        zoomControls.appendChild(zoomOut);
+
+        // Insert controls after the selected flag div
+        selectedFlag.parentNode.insertBefore(zoomControls, selectedFlag.nextSibling);
+
+        // Add zoom info text
+        const zoomInfo = document.createElement('div');
+        zoomInfo.className = 'zoom-info';
+        zoomInfo.textContent = 'SVG flags can be zoomed infinitely without losing quality';
+        zoomInfo.style.display = 'none';
+        selectedFlag.parentNode.insertBefore(zoomInfo, zoomControls.nextSibling);
+
+        // Variables to track zoom level and drag state
+        let currentZoom = 1;
+        const zoomStep = 0.2;
+        const maxZoom = 5;
+        const minZoom = 0.5;
+
+        // Variables for drag functionality
+        let isDragging = false;
+        let startX, startY;
+        let translateX = 0;
+        let translateY = 0;
+
+        // Function to update flag transform
+        function updateTransform() {
+            const svg = selectedFlag.querySelector('svg');
+            if (svg) {
+                svg.style.transform = `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
+                svg.style.transformOrigin = 'center center';
+                zoomInfo.textContent = `Zoom: ${Math.round(currentZoom * 100)}% - Drag to pan when zoomed in`;
+
+                // Show drag hint only when zoomed in
+                if (currentZoom > 1) {
+                    zoomInfo.textContent = `Zoom: ${Math.round(currentZoom * 100)}% - Drag to pan`;
+                    selectedFlag.style.cursor = 'grab';
+                } else {
+                    zoomInfo.textContent = `Zoom: ${Math.round(currentZoom * 100)}%`;
+                    selectedFlag.style.cursor = 'default';
+                    // Reset translation when at normal zoom
+                    translateX = 0;
+                    translateY = 0;
+                }
+            }
+        }
+
+        // Event listeners for zoom buttons
+        zoomIn.addEventListener('click', () => {
+            if (currentZoom < maxZoom) {
+                currentZoom += zoomStep;
+                updateTransform();
+            }
+        });
+
+        zoomOut.addEventListener('click', () => {
+            if (currentZoom > minZoom) {
+                currentZoom -= zoomStep;
+                updateTransform();
+            }
+        });
+
+        resetZoom.addEventListener('click', () => {
+            currentZoom = 1;
+            translateX = 0;
+            translateY = 0;
+            updateTransform();
+        });
+
+        // Show zoom controls when a flag is selected
+        const countrySelect = document.getElementById('country-select');
+        countrySelect.addEventListener('change', (e) => {
+            const code = e.target.value;
+
+            // Reset zoom and position when changing flags
+            currentZoom = 1;
+            translateX = 0;
+            translateY = 0;
+
+            // Show/hide zoom controls based on selection
+            if (code) {
+                // Wait a moment for the flag to load before showing controls
+                setTimeout(() => {
+                    zoomControls.style.display = 'flex';
+                    zoomInfo.style.display = 'block';
+                    updateTransform();
+                }, 500);
+            } else {
+                zoomControls.style.display = 'none';
+                zoomInfo.style.display = 'none';
+            }
+        });
+
+        // Mouse wheel zoom functionality on the flag
+        selectedFlag.addEventListener('wheel', (e) => {
+            if (selectedFlag.querySelector('svg')) {
+                e.preventDefault(); // Prevent page scrolling
+
+                if (e.deltaY < 0 && currentZoom < maxZoom) {
+                    // Zoom in
+                    currentZoom += zoomStep;
+                } else if (e.deltaY > 0 && currentZoom > minZoom) {
+                    // Zoom out
+                    currentZoom -= zoomStep;
+                }
+
+                updateTransform();
+            }
+        });
+
+        // Drag functionality
+        selectedFlag.addEventListener('mousedown', (e) => {
+            const svg = selectedFlag.querySelector('svg');
+            if (svg && currentZoom > 1) {
+                isDragging = true;
+                startX = e.clientX;
+                startY = e.clientY;
+                selectedFlag.style.cursor = 'grabbing';
+            }
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                // Calculate the distance moved
+                const dx = (e.clientX - startX) / currentZoom;
+                const dy = (e.clientY - startY) / currentZoom;
+
+                // Update the position
+                translateX += dx;
+                translateY += dy;
+
+                // Update the starting point for the next move
+                startX = e.clientX;
+                startY = e.clientY;
+
+                updateTransform();
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                selectedFlag.style.cursor = 'grab';
+            }
+        });
+
+        // Touch support for mobile devices
+        selectedFlag.addEventListener('touchstart', (e) => {
+            const svg = selectedFlag.querySelector('svg');
+            if (svg && currentZoom > 1 && e.touches.length === 1) {
+                isDragging = true;
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                e.preventDefault(); // Prevent scrolling on touch devices
+            }
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (isDragging && e.touches.length === 1) {
+                // Calculate the distance moved
+                const dx = (e.touches[0].clientX - startX) / currentZoom;
+                const dy = (e.touches[0].clientY - startY) / currentZoom;
+
+                // Update the position
+                translateX += dx;
+                translateY += dy;
+
+                // Update the starting point for the next move
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+
+                updateTransform();
+                e.preventDefault(); // Prevent scrolling
+            }
+        });
+
+        document.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+    }
+
 
     // Start fetching countries immediately
     fetchCountries();

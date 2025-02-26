@@ -227,3 +227,131 @@ select:disabled {
         justify-content: center;
     }
 }
+
+
+/* Add these styles to styles.css */
+
+.zoom-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.zoom-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.zoom-button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.zoom-button:active {
+    transform: translateY(0);
+}
+
+.zoom-info {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+    margin-top: 5px;
+    font-style: italic;
+}
+
+#selected-flag {
+    width: 900px;
+    max-width: 100%;
+    overflow: hidden;
+    height: 450px; /* Fixed height to prevent layout shifts */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 1px solid #eee;
+    border-radius: var(--border-radius);
+    background-color: #f8f8f8;
+}
+
+#selected-flag svg {
+    max-width: 100%;
+    max-height: 100%;
+    transition: transform 0.2s ease;
+    transform-origin: center center;
+    user-select: none; /* Prevent selection during drag */
+}
+
+/* Compress vertical spacing */
+.flag-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#flag-info {
+    margin-top: 0;
+    text-align: center;
+    line-height: 1.4;
+}
+
+#flag-info p {
+    margin: 3px 0;
+}
+
+.select-container {
+    margin-bottom: 15px;
+}
+
+/* Add a hint to show the flag is draggable when zoomed */
+#selected-flag::after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 15px;
+    height: 15px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233498db' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 3h6v6'/%3E%3Cpath d='M7 21H1v-6'/%3E%3Cpath d='M21 3L8 16'/%3E%3Cpath d='M3 21l13-13'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Add subtle indicator to show SVG quality */
+section#single-flag h2::after {
+    content: " (SVG)";
+    font-size: 0.7em;
+    opacity: 0.7;
+    font-weight: normal;
+    vertical-align: super;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    #selected-flag {
+        height: 120px;
+    }
+
+    .zoom-controls {
+        margin-top: 5px;
+    }
+
+    .zoom-button {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+}
