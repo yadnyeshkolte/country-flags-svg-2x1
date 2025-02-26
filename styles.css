@@ -190,6 +190,31 @@ footer a:hover {
     text-decoration: underline;
 }
 
+.loading-indicator {
+    margin-top: 10px;
+    color: var(--primary-color);
+    font-style: italic;
+}
+
+/* Disabled select styling */
+select:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+}
+
+/* Loading animation for flag */
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+#selected-flag div {
+    animation: pulse 1.5s infinite;
+    text-align: center;
+    padding: 20px;
+}
+
 @media (max-width: 768px) {
     .flags-grid {
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
